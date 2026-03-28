@@ -105,8 +105,13 @@ services:
   #   networks:
   #     - lms-network
   #   volumes:
-  #     # Mount entire repository for live editing (no rebuild needed)
-  #     - .:/app
+  #     # Mount only the parts nanobot needs to edit or read from the repo.
+  #     - ./nanobot:/app/nanobot
+  #     - ./mcp:/app/mcp
+  #     - ./nanobot-websocket-channel:/app/nanobot-websocket-channel
+  #     - ./wiki:/app/wiki:ro
+  #     - ./lab:/app/lab:ro
+  #     - ./contributing:/app/contributing:ro
   #   environment:
   #     # Task 1 used VM-shell URLs. In Docker, use service-to-service URLs instead.
   #     - LLM_API_KEY=${LLM_API_KEY:?'LLM_API_KEY is required'}
