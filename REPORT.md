@@ -58,20 +58,21 @@ The LMS is a microservices-based platform. Key services:
 
 ## Task 1C — Skill prompt
 
-**Q: Show me the scores**
-```
-📊 LMS Lab Scores — Completion Rates:
- lab-01  100.0%  258/258
- lab-02   89.1%  131/147
- lab-03   89.1%  156/175
- lab-04   97.2%  239/246
- lab-05   98.8%  247/250
- lab-06   98.4%  242/246
- lab-07   99.6%  238/239
- lab-08    0.0%    0/0
+**Q: Show me the scores** (without specifying a lab)
 
-Highest completion: Lab 07 (99.6%)
-Lowest completion: Lab 02 & 03 (89.1%)
+The skill prompt instructs the agent to ask which lab when none is specified. Agent response:
+```
+Which lab would you like to see scores for? Here are the available labs:
+ 1   Lab 01 – Products, Architecture & Roles
+ 2   Lab 02 — Run, Fix, and Deploy a Backend Service
+ 3   Lab 03 — Backend API: Explore, Debug, Implement, Deploy
+ 4   Lab 04 — Testing, Front-end, and AI Agents
+ 5   Lab 05 — Data Pipeline and Analytics Dashboard
+ 6   Lab 06 — Build Your Own Agent
+ 7   Lab 07 — Build a Client with an AI Coding Agent
+ 8   Lab 08 — The Agent is the Interface
+
+Please specify which lab you would like to see scores for.
 ```
 
 ## Task 2A — Deployed agent
