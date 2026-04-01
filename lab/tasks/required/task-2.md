@@ -118,7 +118,7 @@ In Task 1 you ran `nanobot agent` from the VM terminal. For production, nanobot 
    > [!TIP]
    > **Troubleshooting common issues:**
    >
-   > **"Error: Connection error" in Flutter chat** — the agent can't reach the LLM. Your `entrypoint.py` must read the **same env var names** that the compose scaffold passes. Check: `docker exec <nanobot-container> grep apiBase /app/nanobot/config.resolved.json` — if the value is empty, your entrypoint isn't picking up the LLM env vars. Compare the variable names in `docker-compose.yml` (under the nanobot service's `environment:`) with what your `entrypoint.py` reads via `os.environ.get(...)`.
+   > **"Error: Connection error" in Flutter chat** — the agent can't reach the LLM. The `entrypoint.py` must read the **same env var names** that the compose scaffold passes. Check: `docker exec <nanobot-container> grep apiBase /app/nanobot/config.resolved.json` — if the value is empty, the entrypoint isn't picking up the LLM env vars. Compare the variable names in `docker-compose.yml` (under the nanobot service's `environment:`) with what `entrypoint.py` reads via its `Settings(BaseSettings)` class.
    >
    > **Empty page at /flutter** — the Flutter volume isn't mounted in Caddy. Make sure `client-web-flutter:/srv/flutter:ro` is uncommented in the caddy service's `volumes:`.
    >
@@ -206,28 +206,19 @@ All of these pieces are in a single repository. The webchat stack handles:
 
    The current tool name exposed to the agent is `mcp_webchat_ui_message`.
 
-3. Update your `entrypoint.py` so it also injects the webchat channel settings and the webchat MCP server settings from Docker env vars:
+3. Uncomment the webchat sections in `entrypoint.py` (marked with `Task 2B`) so it injects the webchat channel settings and the webchat MCP server settings from Docker env vars:
 
-   - enable the `webchat` channel
-   - set its host from `NANOBOT_WEBCHAT_CONTAINER_ADDRESS`
-   - set its port from `NANOBOT_WEBCHAT_CONTAINER_PORT`
-   - configure an MCP server that runs `python -m mcp_webchat`
-   - pass the UI relay URL and token to that MCP server via environment variables
+   - enables the `webchat` channel with host/port from `NANOBOT_WEBCHAT_CONTAINER_ADDRESS` and `NANOBOT_WEBCHAT_CONTAINER_PORT`
+   - configures an MCP server that runs `python -m mcp_webchat`
+   - passes the UI relay URL and token to that MCP server via environment variables
 
    In the current stack, that MCP server is what lets the agent send validated `choice`, `confirm`, and `composite` payloads to the active browser chat instead of printing raw JSON into a text answer.
 
-4. Make sure your `nanobot/config.json` has the webchat channel enabled:
+   You do not need to add the webchat channel to `config.json` — the entrypoint injects it at runtime from the Docker env vars above.
 
-   ```json
-   "channels": {
-     "webchat": {
-       "enabled": true,
-        "allowFrom": ["*"]
-      }
-    }
-   ```
+   Also uncomment the matching webchat environment variables in the `nanobot` service block in `docker-compose.yml` (also marked with `Task 2B`).
 
-   The shared `structured-ui` skill should handle the generic UI behavior.
+4. The shared `structured-ui` skill should handle the generic UI behavior.
    Your LMS skill should still cooperate with it by doing the LMS-specific part:
 
    - call `lms_labs` when the user needs to choose a lab
