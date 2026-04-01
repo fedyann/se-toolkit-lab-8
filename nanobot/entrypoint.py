@@ -15,7 +15,7 @@ CONFIG_PATH = APP_DIR / "config.json"
 RESOLVED_CONFIG_PATH = APP_DIR / "config.resolved.json"
 
 
-class Env(BaseSettings):
+class Settings(BaseSettings):
     llm_api_model: str = Field(..., alias="LLM_API_MODEL")
     llm_api_key: str = Field(..., alias="LLM_API_KEY")
     llm_api_base_url: str = Field(..., alias="LLM_API_BASE_URL")
@@ -47,7 +47,7 @@ class Env(BaseSettings):
     otel_python_log_correlation: str = Field(..., alias="OTEL_PYTHON_LOG_CORRELATION")
 
 
-def _otel_env(env: Env, service_name: str) -> dict[str, str]:
+def _otel_env(env: Settings, service_name: str) -> dict[str, str]:
     return {
         "OTEL_SERVICE_NAME": service_name,
         "OTEL_TRACES_EXPORTER": env.otel_traces_exporter,
@@ -60,7 +60,7 @@ def _otel_env(env: Env, service_name: str) -> dict[str, str]:
 
 
 def _resolve_config() -> Config:
-    env = Env.model_validate({})
+    env = Settings.model_validate({})
     config = load_config(CONFIG_PATH)
 
     config.agents.defaults.model = env.llm_api_model
