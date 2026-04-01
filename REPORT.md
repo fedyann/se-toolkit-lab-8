@@ -1,22 +1,29 @@
 # Lab 8 — Report
-Paste your checkpoint evidence below. Add screenshots as image files in the repo and reference them with `![description](path)`.
 
 ## Task 1A — Bare agent
 
 **Q: What is the agentic loop?**
 ```
-The agentic loop is the iterative reasoning and action cycle that autonomous AI agents follow to accomplish tasks. It typically consists of these core steps:
- 1 Perceive/Observation — The agent gathers information about its environment or current state (reading files, checking outputs, receiving user input).
- 2 Reason/Plan — The agent analyzes the information, decides what to do next, and forms a plan or selects an action.
- 3 Act — The agent executes the chosen action (calling a tool, running a command, writing a file, sending a message).
- 4 Reflect/Learn — The agent observes the outcome of its action, evaluates success, and adjusts its approach if needed.
-Then the loop repeats until the task is complete.
-This loop enables agents to handle complex, multi-step tasks autonomously by continuously adapting based on feedback from their actions.
+The agentic loop is the iterative reasoning and action cycle that autonomous AI agents follow to accomplish tasks. It consists of four core steps:
+ 1 Perceive — Gather information about the environment (reading files, checking outputs, receiving user input)
+ 2 Reason — Analyze information, decide what to do next, form a plan
+ 3 Act — Execute the chosen action (call tools, run commands, write files, send messages)
+ 4 Reflect — Observe outcomes, evaluate success, adjust approach if needed
+This loop enables agents to handle complex, multi-step tasks autonomously by continuously adapting based on feedback.
 ```
 
 **Q: What labs are available in our LMS?**
 ```
-The agent had no LMS tools at this stage and could not answer — it said it does not have access to the LMS system.
+Based on the OpenAPI spec and the backend structure, here are the 8 labs available in your LMS:
+ 1   Lab 01 – Products, Architecture & Roles
+ 2   Lab 02 — Run, Fix, and Deploy a Backend Service
+ 3   Lab 03 — Backend API: Explore, Debug, Implement, Deploy
+ 4   Lab 04 — Testing, Front-end, and AI Agents
+ 5   Lab 05 — Data Pipeline and Analytics Dashboard
+ 6   Lab 06 — Build Your Own Agent
+ 7   Lab 07 — Build a Client with an AI Coding Agent
+ 8   Lab 08 — The Agent is the Interface
+(Agent answered from training knowledge — no LMS tools were connected yet)
 ```
 
 ## Task 1B — Agent with LMS tools
@@ -37,30 +44,34 @@ Here are the 8 labs available in your LMS:
 
 **Q: Describe the architecture of the LMS system**
 ```
-The LMS system consists of the following services:
-- Backend API (FastAPI) — handles items, learners, interactions, analytics, pipeline endpoints
-- PostgreSQL — primary database
-- Caddy — reverse proxy serving the React dashboard and API
-- React frontend — analytics dashboard
-- ETL pipeline — syncs data from autochecker API
-- Observability stack: VictoriaLogs, VictoriaTraces, OTel Collector
-- Qwen Code API — LLM proxy
-- Nanobot — AI agent interface
+The LMS is a microservices-based platform. Key services:
+ Service           Technology       Port        Purpose
+ Caddy             Caddy 2.11       42002       Reverse proxy, routes traffic, serves SPAs
+ LMS Backend       FastAPI          42001       Core API: items, learners, interactions, analytics
+ PostgreSQL        Postgres 18.3    42004       Primary database
+ Qwen Code API     Custom           42005       LLM gateway for AI agent
+ Nanobot           nanobot          8765/18790  AI agent with MCP tools
+ OTEL Collector    OpenTelemetry    4317        Collects traces/logs
+ VictoriaLogs      VictoriaMetrics  42010       Log storage
+ VictoriaTraces    VictoriaMetrics  42011       Trace storage
 ```
 
 ## Task 1C — Skill prompt
 
-**Q: Show me the scores (without specifying a lab)**
+**Q: Show me the scores**
 ```
-The agent fetched all labs and returned a full table with completion rates and average scores per task for all 8 labs:
-- Lab 01: 100.0% (258/258)
-- Lab 02: 89.1% (131/147)
-- Lab 03: 89.1% (156/175)
-- Lab 04: 97.2% (239/246)
-- Lab 05: 98.8% (247/250)
-- Lab 06: 98.4% (242/246)
-- Lab 07: 99.6% (238/239)
-- Lab 08: 0.0% (0/0) — no submissions yet
+📊 LMS Lab Scores — Completion Rates:
+ lab-01  100.0%  258/258
+ lab-02   89.1%  131/147
+ lab-03   89.1%  156/175
+ lab-04   97.2%  239/246
+ lab-05   98.8%  247/250
+ lab-06   98.4%  242/246
+ lab-07   99.6%  238/239
+ lab-08    0.0%    0/0
+
+Highest completion: Lab 07 (99.6%)
+Lowest completion: Lab 02 & 03 (89.1%)
 ```
 
 ## Task 2A — Deployed agent
