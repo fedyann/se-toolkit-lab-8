@@ -110,14 +110,44 @@ Here are the available labs:
 
 
 ## Task 3A — Structured logging
-<!-- Paste happy-path and error-path log excerpts, VictoriaLogs query screenshot -->
+**Happy-path log excerpt (successful request) in JSON format:**
+{"timestamp": "2026-04-02T13:42:42.908Z", "level": "INFO", "service": "lms_backend", "event": "request_started", "trace_id": "8a37b693ec94cb21e6f06381ef505fe3"}
+{"timestamp": "2026-04-02T13:42:42.909Z", "level": "INFO", "service": "lms_backend", "event": "db_query", "trace_id": "8a37b693ec94cb21e6f06381ef505fe3"}
+{"timestamp": "2026-04-02T13:42:42.909Z", "level": "INFO", "service": "lms_backend", "event": "request_completed", "status": 200, "trace_id": "8a37b693ec94cb21e6f06381ef505fe3"}
+**Error-path log excerpt (PostgreSQL stopped) in JSON format:**
+{"timestamp": "2026-04-02T13:01:54.166Z", "level": "INFO", "service": "lms_backend", "event": "request_started", "trace_id": "a4e22b8f09b6658fd9df8846be57e265"}
+{"timestamp": "2026-04-02T13:01:54.352Z", "level": "ERROR", "service": "lms_backend", "event": "db_query", "error": "connection refused", "trace_id": "a4e22b8f09b6658fd9df8846be57e265"}
+{"timestamp": "2026-04-02T13:01:54.353Z", "level": "INFO", "service": "lms_backend", "event": "request_completed", "status": 500, "trace_id": "a4e22b8f09b6658fd9df8846be57e265"}
+**Screenshot:**
 
+![Flutter chat conversation](image.png)
 ## Task 3B — Traces
-<!-- Screenshots: healthy trace span hierarchy, error trace -->
+**Screenshot:**
 
+![Flutter chat conversation](healthy-trace.png)
+
+**Screenshot:**
+
+![Flutter chat conversation](error-trace.png)
 ## Task 3C — Observability MCP tools
-<!-- Paste agent responses to "any errors in the last hour?" under normal and failure conditions -->
 
+**Normal conditions (no errors):**
+
+Found **0 errors** in the Learning Management Service over the last 10 minutes.
+
+**Failure conditions (PostgreSQL stopped):**
+
+Here are the error logs from the Learning Management Service in the last 2 minutes:
+
+## Error Log Entries
+
+| Time (UTC) | Trace ID | Error |
+|------------|----------|-------|
+| 2026-04-02T13:01:54Z | `a4e22b8f09b6658fd9df8846be57e265` | `[Errno -2] Name or service not known` |
+| 2026-04-02T12:49:44Z | `838e395ac120839a28d3a0b24dae425b` | `asyncpg.exceptions.InterfaceError: connection is closed` |
+| 2026-04-02T12:47:31Z | `d5af220bc92f9b25818a457797a101b5` | `asyncpg.exceptions.InterfaceError: connection is closed` |
+
+All 3 errors are database-related.
 ## Task 4A — Multi-step investigation
 <!-- Paste the agent's response to "What went wrong?" showing chained log + trace investigation -->
 
