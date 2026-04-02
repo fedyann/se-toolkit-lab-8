@@ -19,6 +19,7 @@ members = [
 ]
 
 [tool.uv.sources]
+mcp-obs = { workspace = true, editable = true }
 mcp-lms = { workspace = true, editable = true }
 
 # Task 1 — uncomment after you create the nanobot/ project.
@@ -31,7 +32,6 @@ nanobot = { workspace = true, editable = true }
 # client-telegram-bot = { workspace = true, editable = true }
 
 # Task 3 — uncomment after you add mcp-obs.
-mcp-obs = { workspace = true, editable = true }
 
 [dependency-groups]
 dev = [
@@ -149,7 +149,6 @@ include = [
 extraPaths = [
   "backend/src",
   "mcp/mcp-lms/src",
-  "mcp/mcp-obs/src",
   "qwen-code-api/src",
   
   # Task 2B — uncomment after you add the webchat channel.
