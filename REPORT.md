@@ -76,10 +76,38 @@ Please specify which lab you would like to see scores for.
 ```
 
 ## Task 2A — Deployed agent
-<!-- Paste a short nanobot startup log excerpt showing the gateway started inside Docker -->
+**Nanobot gateway startup log (excerpt):**
+2026-04-02 11:51:02.599 | INFO | nanobot.channels.manager:_init_channels:58 - WebChat channel enabled
+✓ Channels enabled: webchat
+2026-04-02 11:51:05.875 | DEBUG | nanobot.agent.tools.mcp:connect_mcp_servers:226 - MCP: registered tool 'mcp_lms_lms_health' from server 'lms'
+2026-04-02 11:51:05.876 | DEBUG | nanobot.agent.tools.mcp:connect_mcp_servers:226 - MCP: registered tool 'mcp_lms_lms_labs' from server 'lms'
+2026-04-02 11:51:05.877 | INFO | nanobot.agent.tools.mcp:connect_mcp_servers:246 - MCP server 'lms': connected, 9 tools registered
+2026-04-02 11:51:06.426 | INFO | nanobot.agent.loop:run:280 - Agent loop started
 
 ## Task 2B — Web client
-<!-- Screenshot of a conversation with the agent in the Flutter web app -->
+
+**Screenshot:**
+
+![Flutter chat conversation](image.png)
+
+**Conversation:**
+
+User: "What labs are available?"
+
+Agent response:
+```
+Here are the available labs:
+1. Lab 01 – Products, Architecture & Roles
+2. Lab 02 — Run, Fix, and Deploy a Backend Service
+3. Lab 03 — Backend API: Explore, Debug, Implement, Deploy
+4. Lab 04 — Testing, Front-end, and AI Agents
+5. Lab 05 — Data Pipeline and Analytics Dashboard
+6. Lab 06 — Build Your Own Agent
+7. Lab 07 — Build a Client with an AI Coding Agent
+8. Lab 08 – The Agent is the Interface
+```
+
+
 
 ## Task 3A — Structured logging
 <!-- Paste happy-path and error-path log excerpts, VictoriaLogs query screenshot -->
@@ -101,3 +129,37 @@ Please specify which lab you would like to see scores for.
      2. Code fix (diff or description)
      3. Post-fix response to "What went wrong?" showing the real underlying failure
      4. Healthy follow-up report or transcript after recovery -->
+
+## Task 2B — Web client
+
+**Screenshot:**
+
+![Flutter chat conversation](image.png)
+
+**Conversation:**
+
+User: "What labs are available?"
+
+Agent response:
+```
+Here are the available labs:
+1. Lab 01 – Products, Architecture & Roles
+2. Lab 02 — Run, Fix, and Deploy a Backend Service
+3. Lab 03 — Backend API: Explore, Debug, Implement, Deploy
+4. Lab 04 — Testing, Front-end, and AI Agents
+5. Lab 05 — Data Pipeline and Analytics Dashboard
+6. Lab 06 — Build Your Own Agent
+7. Lab 07 — Build a Client with an AI Coding Agent
+8. Lab 08 – The Agent is the Interface
+```
+
+
+![Flutter chat conversation](image.png)
+
+The Flutter web client is accessible at `http://<VM-IP>:42002/flutter`. 
+After logging in with `NANOBOT_ACCESS_KEY`, the agent successfully responds to questions about available labs using the LMS MCP tools.
+
+**Conversation transcript:**
+- User: "What labs are available?"
+- Agent: Returns list of 8 labs with names and offers to provide more details (completion rates, pass rates, top learners).
+
