@@ -248,3 +248,20 @@ backend-1 | 2026-04-02 13:01:54,353 INFO | request_completed status=500
 ![Healthy trace](healthy-trace.png)
 ![Error trace](error-trace.png)
 
+
+## Task 3C — Observability MCP tools
+
+**Normal conditions (no errors):**
+Good news! There were 0 errors in the Learning Management Service over the last 10 minutes. The LMS backend appears to be running smoothly.
+
+**Failure conditions (PostgreSQL stopped - database-related errors from logs):**
+Yes, there are 3 errors in the LMS backend in the last 10 minutes. All are database-related:
+
+Database connection refused
+
+Query execution failed
+
+Connection pool exhausted
+
+The errors occurred between 13:56 and 13:58 UTC. The root cause appears to be the PostgreSQL database being unavailable.
+
